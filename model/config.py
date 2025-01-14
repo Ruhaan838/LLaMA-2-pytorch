@@ -18,6 +18,7 @@ class LlamaConfig:
     num_params:str = "7B"
     model_name:str = "checkpoint/llama-{}-{}"
     last_epoch:int = 10
+    lr :float =0.001
     
 def load_from_checkpoint(model, path:str):
     model.load_state_dict(torch.load(path, weights_only=True))
