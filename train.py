@@ -32,10 +32,10 @@ def train(args:LlamaConfig, model:Llama, dataloader:DataLoader, device:str, loss
     
     if epoch % save_steps == 0:
         params = args.num_params
-        args.model_name.format(params, epoch)
+        args.model_name = args.model_name.format(params, epoch)
         save_model(model, args.model_name)
         
-    return losses / len(dataloader)
+    return losses
 
 def safety_function_for_device(device: str, args: LlamaConfig):
     try:
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     elif args.model == "70B":
         llamaconfig = LlamaConfig(d_model=8192, num_heads=64, n_blocks=80, lr=1.5e-4, last_epoch=args.epoch)
     elif args.model == "T":
-        llamaconfig = LlamaConfig(d_model=768, num_heads=8, n_blocks=4, lr=3e-4, last_epoch=args.epoch)
+        llamaconfig = LlamaConfig(d_model=1024, num_heads=16, n_blocks=8, lr=3e-4, last_epoch=args.epoch)
     else:
         raise ValueError(f"Given args for model is not support {args.model}")
         
